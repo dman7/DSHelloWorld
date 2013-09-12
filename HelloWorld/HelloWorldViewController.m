@@ -49,9 +49,12 @@
     tf.backgroundColor = [UIColor whiteColor];
     tf.placeholder = @"Please enter your name here";
     
-    // Add the text field.
+    
+    // Add the text field to the view, and to the controller.
     [self.view addSubview:tf];
-
+    self.textField = tf;
+    // QUESTION: What if I want to have several textFields in a controller?
+    
     
     // Create a label.
     UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 30, 100, self.view.bounds.size.width - 20, 30) ];
@@ -59,8 +62,9 @@
     l.backgroundColor = self.view.backgroundColor;
     l.font = [UIFont fontWithName:@"Times New Roman" size:18];
     
-    // Add the label.
+    // Add the label to the view and controller.
     [self.view addSubview:l];
+    self.label = l;
     
     
     // Create a button.
@@ -72,7 +76,15 @@
     
     // Add a button.
     [self.view addSubview:btn];
-
+    
+    
+    // Now add click control.
+    [btn addTarget:self action:@selector(changeGreeting ) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+    // TODO: Time to delegate!
+    tf.delegate = self;
     
     
 }
@@ -83,7 +95,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)changeGreeting:(id)sender {
+
+- (void)changeGreeting {
     self.userName = self.textField.text;
     
     NSString *nameString = self.userName;
@@ -91,17 +104,20 @@
         nameString = @"World";
     }
     
+    // QUESTION: Why are we allocating if we have ARC?
     NSString *greeting = [ [NSString alloc] initWithFormat:@"Hello, %@!", nameString ];
     self.label.text = greeting;
     
 }
 
 
+
+
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     if (theTextField == self.textField) {
         [theTextField resignFirstResponder];
     }
-    return YES;
+    return NO;
 }
 
 
