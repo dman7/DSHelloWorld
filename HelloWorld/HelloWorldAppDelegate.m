@@ -16,13 +16,18 @@
 {
     // Override point for customization after application launch.
     
-    // Begin by instantiating 
+    // Begin by instantiating the UIWindow.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    // With UIWindow instantiated, let's declare the UINavigationController to be the Root View Controller and
+    // initialize RVC to be our own HelloWorldViewController.
     HelloWorldViewController *hwvc = [[HelloWorldViewController alloc] init ];
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:hwvc ];
     
-    self.window.backgroundColor = [UIColor blueColor];
+    // Now let's add a color.
+    // self.window.backgroundColor = [UIColor blueColor];
+    
+    // QUESTION: Why do we need to redeclare the root view controller here?
     self.window.rootViewController = nvc;
 
     [self.window makeKeyAndVisible];
